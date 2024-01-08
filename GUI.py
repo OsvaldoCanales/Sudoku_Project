@@ -283,6 +283,27 @@ def format_time(secs):
     mat = " " + str(minute) + ":" + str(sec)
     return mat
 
+#function to display instructions
+def display_instructions(win):
+    fnt = pygame.font.SysFont("comicsans", 20)
+    text1 = fnt.render("Welcome to Sudoku!",0, (0,0,0))
+    text2 = fnt.render("Use numbers 1-9 to fill the grid", 0, (0,0,0))
+    text3 = fnt.render("Entering a number will display a sketch",0,(0,0,0))
+    text7 = fnt.render("press ENTER to place the number", 0, (0,0,0))
+    text4 = fnt.render("Enter DELETE to clear a cell",0,(0,0,0))
+    text5 = fnt.render("Press SPACE to start the game",0,(0,0,0))
+    text6 = fnt.render("Good luck!", 0, (0,0,0))
+
+    win.fill((255,255,255))
+    win.blit(text1, (20, 50))
+    win.blit(text2, (20, 100))
+    win.blit(text3, (20, 150))
+    win.blit(text7, (20, 200))
+    win.blit(text4, (20, 250))
+    win.blit(text5, (20, 300))
+    win.blit(text6, (20, 350))
+    pygame.display.update()
+
 #Initalize the Pygame Window
 def main():
     win = pygame.display.set_mode((540,600))
@@ -292,6 +313,20 @@ def main():
     run = True
     start = time.time()
     strikes = 0 
+
+    display_instructions(win)
+    start_game = False
+
+    #Instrunction window till user starts the game
+    while not start_game:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                start_game = True
+
+    #Run the game till user exits or completes the puzzle
     while run:
 
         play_time = round(time.time() - start)
